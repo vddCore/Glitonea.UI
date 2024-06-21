@@ -1,0 +1,53 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:baseControls="clr-namespace:Glitonea.UI">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <baseControls:FluentWindow />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="baseControls|FluentWindow">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+        <Setter Property="TransparencyLevelHint" Value="Mica" />
+        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+
+        <Setter Property="Template">
+            <ControlTemplate TargetType="baseControls:FluentWindow">
+                <Panel>
+                    <Grid RowDefinitions="Auto,*"
+                          Background="{TemplateBinding Background}">
+                        <Border Grid.Row="0"
+                                Background="#01000000"
+                                Name="PART_CaptionBar" 
+                                MinHeight="30"/>
+                        <CaptionButtons Grid.Row="0"
+                                        Name="PART_CaptionButtons"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,-1,0,0"
+                                        MinHeight="30"
+                                        Foreground="{DynamicResource TextControlForeground}" 
+                                        ZIndex="1"/>
+
+                        <ContentPresenter Grid.Row="0"
+                                          Grid.RowSpan="2"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}" />
+                    </Grid>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^:maximized /template/ Border#PART_CaptionBar">
+            <Setter Property="Height" Value="43" />
+            <Setter Property="Padding" Value="7,7,7,0" />
+        </Style>
+        
+        <Style Selector="^:maximized">
+            <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="43" />
+        </Style>
+    </Style>
+</Styles>
