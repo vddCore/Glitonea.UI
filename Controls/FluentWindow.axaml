@@ -21,13 +21,13 @@
                         <Border Grid.Row="0"
                                 Background="#01000000"
                                 Name="PART_CaptionBar" 
-                                MinHeight="30"/>
+                                MinHeight="{TemplateBinding CaptionBarHeight}"/>
                         <CaptionButtons Grid.Row="0"
                                         Name="PART_CaptionButtons"
                                         VerticalAlignment="Stretch"
                                         HorizontalAlignment="Right"
                                         Margin="0,-1,0,0"
-                                        MinHeight="30"
+                                        MinHeight="{TemplateBinding CaptionBarHeight}"
                                         Foreground="{DynamicResource TextControlForeground}" 
                                         ZIndex="1"/>
 
@@ -46,7 +46,17 @@
             <Setter Property="Padding" Value="7,7,7,0" />
         </Style>
         
+        <Style Selector="^:maximized /template/ CaptionButtons:maximized#PART_CaptionButtons">
+            <Setter Property="Margin" Value="-1,4,8,0" />
+        </Style>
+
+        <Style Selector="^:maximized /template/ CaptionButtons:maximized#PART_CaptionButtons /template/ Button /template/ ContentPresenter">
+            <Setter Property="Margin" Value="0,4,0,0" />
+        </Style>
+
         <Style Selector="^:maximized">
+            <Setter Property="CaptionBarPadding" Value="8,10,8,0" />
+            <Setter Property="CaptionBarHeight" Value="43" />
             <Setter Property="ExtendClientAreaTitleBarHeightHint" Value="43" />
         </Style>
     </Style>

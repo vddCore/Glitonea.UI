@@ -38,6 +38,16 @@ public class FluentWindow : Window
             nameof(ShowMaximizeButton), true
         );
 
+    public static readonly StyledProperty<Thickness> CaptionBarPaddingProperty =
+        AvaloniaProperty.Register<FluentWindow, Thickness>(
+            nameof(CaptionBarPadding), new(0)
+        );
+    
+    public static readonly StyledProperty<double> CaptionBarHeightProperty =
+        AvaloniaProperty.Register<FluentWindow, double>(
+            nameof(CaptionBarHeight), 30
+        );
+
     public bool ShowMaximizeButton
     {
         get => GetValue(ShowMaximizeButtonProperty);
@@ -54,6 +64,18 @@ public class FluentWindow : Window
     {
         get => GetValue(ShowCloseButtonProperty);
         set => SetValue(ShowCloseButtonProperty, value);
+    }
+
+    public Thickness CaptionBarPadding
+    {
+        get => GetValue(CaptionBarPaddingProperty);
+        private set => SetValue(CaptionBarPaddingProperty, value);
+    }
+    
+    public double CaptionBarHeight
+    {
+        get => GetValue(CaptionBarHeightProperty);
+        private set => SetValue(CaptionBarHeightProperty, value);
     }
 
     public FluentWindow()
@@ -111,7 +133,16 @@ public class FluentWindow : Window
         base.OnApplyTemplate(e);
 
         _captionBar = e.NameScope.Find<Border>("PART_CaptionBar");
-        _captionBar!.PointerPressed += OnCaptionBarPointerPressed;
+
+        if (_captionBar == null)
+        {
+            throw new InvalidOperationException(
+                "Cannot find a critical template element. " +
+                "Forgor to include <GlitoneaUI/> in your application styles?"
+            );
+        }
+        
+        _captionBar.PointerPressed += OnCaptionBarPointerPressed;
 
         var captionButtons = e.NameScope.Find<CaptionButtons>(
             "PART_CaptionButtons"
