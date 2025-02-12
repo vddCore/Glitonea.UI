@@ -8,6 +8,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
+using Avalonia.Media;
 using Avalonia.Platform;
 
 public class FluentWindow : Window
@@ -38,14 +39,19 @@ public class FluentWindow : Window
             nameof(ShowMaximizeButton), true
         );
 
-    public static readonly StyledProperty<Thickness> CaptionBarPaddingProperty =
-        AvaloniaProperty.Register<FluentWindow, Thickness>(
-            nameof(CaptionBarPadding), new(0)
+    public static readonly StyledProperty<IBrush> CaptionBarBackgroundProperty =
+        AvaloniaProperty.Register<FluentWindow, IBrush>(
+            nameof(CaptionBarBackground)
+        );
+
+    public static readonly StyledProperty<object> CaptionBarProperty =
+        AvaloniaProperty.Register<FluentWindow, object>(
+            nameof(CaptionBar)
         );
     
     public static readonly StyledProperty<double> CaptionBarHeightProperty =
         AvaloniaProperty.Register<FluentWindow, double>(
-            nameof(CaptionBarHeight), 30
+            nameof(CaptionBarHeight), 31
         );
 
     public bool ShowMaximizeButton
@@ -66,16 +72,22 @@ public class FluentWindow : Window
         set => SetValue(ShowCloseButtonProperty, value);
     }
 
-    public Thickness CaptionBarPadding
+    public IBrush CaptionBarBackground
     {
-        get => GetValue(CaptionBarPaddingProperty);
-        private set => SetValue(CaptionBarPaddingProperty, value);
+        get => GetValue(CaptionBarBackgroundProperty);
+        set => SetValue(CaptionBarBackgroundProperty, value);
+    }
+
+    public object CaptionBar
+    {
+        get => GetValue(CaptionBarProperty);
+        set => SetValue(CaptionBarProperty, value);
     }
     
     public double CaptionBarHeight
     {
         get => GetValue(CaptionBarHeightProperty);
-        private set => SetValue(CaptionBarHeightProperty, value);
+        set => SetValue(CaptionBarHeightProperty, value);
     }
 
     public FluentWindow()
@@ -89,7 +101,7 @@ public class FluentWindow : Window
 
         ExtendClientAreaToDecorationsHint = true;
         ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        ExtendClientAreaTitleBarHeightHint = 36;
+        ExtendClientAreaTitleBarHeightHint = CaptionBarHeight;
 
         _disposables = new CompositeDisposable()
         {
@@ -160,7 +172,7 @@ public class FluentWindow : Window
         _closeButton = e.NameScope.Find<Button>("PART_CloseButton");
         _fullScreenButton = e.NameScope.Find<Button>("PART_FullScreenButton");
         _maximizeButton = e.NameScope.Find<Button>("PART_RestoreButton");
-        _minimizeButton = e.NameScope.Find<Button>("PART_MinimiseButton");
+        _minimizeButton = e.NameScope.Find<Button>("PART_MinimizeButton");
 
         if (_maximizeButton != null)
             _maximizeButton.IsVisible = ShowMaximizeButton;
