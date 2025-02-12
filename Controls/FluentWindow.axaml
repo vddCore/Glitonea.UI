@@ -12,49 +12,72 @@
         <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
         <Setter Property="TransparencyLevelHint" Value="Mica" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
-        <Setter Property="CaptionBarBackground" Value="#01000000" />
+        <Setter Property="CaptionBarBackground" Value="#01FFFFFF" />
         <Setter Property="CaptionBarHeight" Value="30" />
 
         <Setter Property="Template">
             <ControlTemplate TargetType="baseControls:FluentWindow">
                 <Panel>
                     <Grid RowDefinitions="Auto,*">
-                        <Grid Grid.Row="0"
-                              ColumnDefinitions="*,Auto"
-                              Background="{TemplateBinding CaptionBarBackground}"
-                              ZIndex="1">
-                            <Border Name="PART_CaptionBar"
-                                    Grid.Column="0"
-                                    Height="{TemplateBinding CaptionBarHeight}">
-                                <ContentPresenter HorizontalAlignment="Stretch"
-                                                  VerticalAlignment="Stretch"
-                                                  Content="{TemplateBinding CaptionBar}" />
-                            </Border>
-                            
-                            <CaptionButtons Grid.Column="1"
-                                            Name="PART_CaptionButtons"
-                                            Background="Transparent"
-                                            VerticalAlignment="Stretch"
-                                            Foreground="{DynamicResource TextControlForeground}">
-                                <CaptionButtons.Styles>
-                                    <Style Selector="CaptionButtons /template/ Button#PART_MinimizeButton">
-                                        <Setter Property="Background" Value="Transparent" />
-                                    </Style>
-                                    
-                                    <Style Selector="CaptionButtons:maximized /template/ Button#PART_MinimizeButton">
-                                        <Style.Animations>
-                                            <Animation Duration="0:0:0.35"></Animation>
-                                        </Style.Animations>
-                                        <Setter Property="Background" Value="Transparent" />
-                                    </Style>
-                                </CaptionButtons.Styles>
-                            </CaptionButtons>
-                        </Grid>
+                        <Border Grid.Row="0"
+                                Name="PART_CaptionBarWrapper">
+                            <Border.Styles>
+                                <Style
+                                    Selector="baseControls|FluentWindow:maximized /template/ Border#PART_CaptionBarWrapper">
+                                    <Setter Property="Padding" Value="8,8,8,0" />
+                                </Style>
+                            </Border.Styles>
+                            <Grid Name="PART_CaptionBar"
+                                  ZIndex="1"
+                                  ColumnDefinitions="*,Auto"
+                                  Height="{TemplateBinding CaptionBarHeight}"
+                                  Background="{TemplateBinding CaptionBarBackground}"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <Border Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Height="{TemplateBinding CaptionBarHeight}">
+                                    <ContentPresenter HorizontalAlignment="Stretch"
+                                                      VerticalAlignment="Stretch"
+                                                      Content="{TemplateBinding CaptionBar}"
+                                                      Margin="{TemplateBinding CaptionContentSafeAreaMargin}" />
+                                </Border>
 
-                        <ContentPresenter Grid.Row="1"
-                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding Content}" />
+                                <CaptionButtons Grid.Column="1"
+                                                Name="PART_CaptionButtons"
+                                                Background="Transparent"
+                                                VerticalAlignment="Stretch"
+                                                Foreground="{DynamicResource TextControlForeground}">
+                                    <CaptionButtons.Styles>
+                                        <Style Selector="CaptionButtons /template/ Button /template/ ContentPresenter">
+                                            <Setter Property="Transitions">
+                                                <Transitions>
+                                                    <BrushTransition Property="Background"
+                                                                     Duration="0:0:0.075"
+                                                                     Easing="CircularEaseIn" />
+                                                </Transitions>
+                                            </Setter>
+                                        </Style>
+
+                                        <Style Selector="CaptionButtons /template/ Button#PART_CloseButton /template/ ContentPresenter#PART_ContentPresenter">
+                                            <Setter Property="Background" Value="#01000000" />
+                                        </Style>
+                                        
+                                        <Style Selector="CaptionButtons /template/ Button#PART_CloseButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                            <Setter Property="Background" Value="Green" />
+                                        </Style>
+                                    </CaptionButtons.Styles>
+                                </CaptionButtons>
+                            </Grid>
+                        </Border>
+
+                        <Grid Grid.Row="1"
+                              Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}" />
+                        </Grid>
                     </Grid>
                 </Panel>
             </ControlTemplate>

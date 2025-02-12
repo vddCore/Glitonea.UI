@@ -48,10 +48,15 @@ public class FluentWindow : Window
         AvaloniaProperty.Register<FluentWindow, object>(
             nameof(CaptionBar)
         );
-    
+
     public static readonly StyledProperty<double> CaptionBarHeightProperty =
         AvaloniaProperty.Register<FluentWindow, double>(
             nameof(CaptionBarHeight), 31
+        );
+
+    internal static readonly StyledProperty<Thickness> CaptionContentSafeAreaMarginProperty =
+        AvaloniaProperty.Register<FluentWindow, Thickness>(
+            nameof(CaptionContentSafeAreaMargin)
         );
 
     public bool ShowMaximizeButton
@@ -83,27 +88,33 @@ public class FluentWindow : Window
         get => GetValue(CaptionBarProperty);
         set => SetValue(CaptionBarProperty, value);
     }
-    
+
     public double CaptionBarHeight
     {
         get => GetValue(CaptionBarHeightProperty);
         set => SetValue(CaptionBarHeightProperty, value);
     }
 
+    internal Thickness CaptionContentSafeAreaMargin
+    {
+        get => GetValue(CaptionContentSafeAreaMarginProperty);
+        set => SetValue(CaptionContentSafeAreaMarginProperty, value);
+    }
+
     public FluentWindow()
     {
-        TransparencyLevelHint = new[]
-        {
+        TransparencyLevelHint =
+        [
             WindowTransparencyLevel.AcrylicBlur,
             WindowTransparencyLevel.Mica,
             WindowTransparencyLevel.Blur
-        };
+        ];
 
         ExtendClientAreaToDecorationsHint = true;
         ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
         ExtendClientAreaTitleBarHeightHint = CaptionBarHeight;
 
-        _disposables = new CompositeDisposable()
+        _disposables = new CompositeDisposable
         {
             this.GetObservable(WindowStateProperty)
                 .Subscribe(x =>
@@ -144,7 +155,7 @@ public class FluentWindow : Window
     {
         base.OnApplyTemplate(e);
 
-        _captionBar = e.NameScope.Find<Border>("PART_CaptionBar");
+        _captionBar = e.NameScope.Find<Grid>("PART_CaptionBar");
 
         if (_captionBar == null)
         {
@@ -153,7 +164,7 @@ public class FluentWindow : Window
                 "Forgor to include <GlitoneaUI/> in your application styles?"
             );
         }
-        
+
         _captionBar.PointerPressed += OnCaptionBarPointerPressed;
 
         var captionButtons = e.NameScope.Find<CaptionButtons>(
@@ -162,12 +173,13 @@ public class FluentWindow : Window
 
         if (captionButtons != null)
         {
-            captionButtons.TemplateApplied += CaptionButtonsOnTemplateApplied;
+            captionButtons.TemplateApplied += CaptionButtons_TemplateApplied;
+            captionButtons.LayoutUpdated += CaptionButtons_LayoutUpdated;
             captionButtons.Attach(this);
         }
     }
 
-    private void CaptionButtonsOnTemplateApplied(object? sender, TemplateAppliedEventArgs e)
+    private void CaptionButtons_TemplateApplied(object? sender, TemplateAppliedEventArgs e)
     {
         _closeButton = e.NameScope.Find<Button>("PART_CloseButton");
         _fullScreenButton = e.NameScope.Find<Button>("PART_FullScreenButton");
@@ -182,6 +194,11 @@ public class FluentWindow : Window
 
         if (_closeButton != null)
             _closeButton.IsVisible = ShowCloseButton;
+    }
+    
+    private void CaptionButtons_LayoutUpdated(object? sender, EventArgs e)
+    {
+        CaptionContentSafeAreaMargin = new Thickness(0, 0, ((CaptionButtons)sender!).Bounds.Width, 0);
     }
 
     private void OnCaptionBarPointerPressed(object? sender, PointerPressedEventArgs e)
