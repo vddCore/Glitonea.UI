@@ -13,7 +13,29 @@
         <Setter Property="TransparencyLevelHint" Value="Mica" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="CaptionBarBackground" Value="#01FFFFFF" />
-        <Setter Property="CaptionBarHeight" Value="30" />
+        <Setter Property="CaptionBarHeight" Value="31" />
+
+        <Setter Property="CaptionBar">
+            <Template>
+                <Grid ColumnDefinitions="Auto,*">
+                    <Viewbox Grid.Column="0"
+                             Width="16"
+                             Height="16"
+                             Margin="10,0,0,0">
+                        <Image Source="{Binding $parent[baseControls:FluentWindow].Icon}"
+                               RenderOptions.EdgeMode="Antialias"
+                               RenderOptions.BitmapInterpolationMode="HighQuality"
+                               RenderOptions.RequiresFullOpacityHandling="True" />
+                    </Viewbox>
+                    
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding $parent[baseControls:FluentWindow].Title}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource TextControlForeground}" />
+                </Grid>                
+            </Template>
+        </Setter>
 
         <Setter Property="Template">
             <ControlTemplate TargetType="baseControls:FluentWindow">
@@ -22,11 +44,11 @@
                         <Border Grid.Row="0"
                                 Name="PART_CaptionBarWrapper">
                             <Border.Styles>
-                                <Style
-                                    Selector="baseControls|FluentWindow:maximized /template/ Border#PART_CaptionBarWrapper">
-                                    <Setter Property="Padding" Value="8,8,8,0" />
+                                <Style Selector="baseControls|FluentWindow:maximized /template/ Border#PART_CaptionBarWrapper">
+                                    <Setter Property="Padding" Value="8,6,8,0" />
                                 </Style>
                             </Border.Styles>
+                            
                             <Grid Name="PART_CaptionBar"
                                   ZIndex="1"
                                   ColumnDefinitions="*,Auto"
@@ -47,27 +69,7 @@
                                                 Name="PART_CaptionButtons"
                                                 Background="Transparent"
                                                 VerticalAlignment="Stretch"
-                                                Foreground="{DynamicResource TextControlForeground}">
-                                    <CaptionButtons.Styles>
-                                        <Style Selector="CaptionButtons /template/ Button /template/ ContentPresenter">
-                                            <Setter Property="Transitions">
-                                                <Transitions>
-                                                    <BrushTransition Property="Background"
-                                                                     Duration="0:0:0.075"
-                                                                     Easing="CircularEaseIn" />
-                                                </Transitions>
-                                            </Setter>
-                                        </Style>
-
-                                        <Style Selector="CaptionButtons /template/ Button#PART_CloseButton /template/ ContentPresenter#PART_ContentPresenter">
-                                            <Setter Property="Background" Value="#01000000" />
-                                        </Style>
-                                        
-                                        <Style Selector="CaptionButtons /template/ Button#PART_CloseButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                                            <Setter Property="Background" Value="Green" />
-                                        </Style>
-                                    </CaptionButtons.Styles>
-                                </CaptionButtons>
+                                                Foreground="{DynamicResource TextControlForeground}" />
                             </Grid>
                         </Border>
 
