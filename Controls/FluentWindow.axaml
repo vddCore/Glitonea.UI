@@ -45,7 +45,7 @@
                                 Name="PART_CaptionBarWrapper">
                             <Border.Styles>
                                 <Style Selector="baseControls|FluentWindow:maximized /template/ Border#PART_CaptionBarWrapper">
-                                    <Setter Property="Padding" Value="8,6,8,0" />
+                                    <Setter Property="Padding" Value="9,6,9,0" />
                                 </Style>
                             </Border.Styles>
                             
@@ -74,7 +74,8 @@
                         </Border>
 
                         <Grid Grid.Row="1"
-                              Background="{TemplateBinding Background}">
+                              Background="{TemplateBinding Background}"
+                              ZIndex="5">
                             <ContentPresenter
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"

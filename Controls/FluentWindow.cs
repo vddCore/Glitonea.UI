@@ -37,6 +37,11 @@ public class FluentWindow : Window
             nameof(ShowMaximizeButton), true
         );
 
+    public static readonly StyledProperty<bool> ShowFullScreenButtonProperty =
+        AvaloniaProperty.Register<FluentWindow, bool>(
+            nameof(ShowFullScreenButton)
+        );
+
     public static readonly StyledProperty<bool> ShowCloseButtonProperty =
         AvaloniaProperty.Register<FluentWindow, bool>(
             nameof(ShowMaximizeButton), true
@@ -82,6 +87,12 @@ public class FluentWindow : Window
     {
         get => GetValue(ShowMinimizeButtonProperty);
         set => SetValue(ShowMinimizeButtonProperty, value);
+    }
+
+    public bool ShowFullScreenButton
+    {
+        get => GetValue(ShowFullScreenButtonProperty);
+        set => SetValue(ShowFullScreenButtonProperty, value);
     }
 
     public bool ShowCloseButton
@@ -195,16 +206,19 @@ public class FluentWindow : Window
 
     private void CaptionButtons_TemplateApplied(object? sender, TemplateAppliedEventArgs e)
     {
-        _closeButton = e.NameScope.Find<Button>("PART_CloseButton");
-        _fullScreenButton = e.NameScope.Find<Button>("PART_FullScreenButton");
-        _maximizeButton = e.NameScope.Find<Button>("PART_RestoreButton");
         _minimizeButton = e.NameScope.Find<Button>("PART_MinimizeButton");
-
-        if (_maximizeButton != null)
-            _maximizeButton.IsVisible = ShowMaximizeButton;
+        _maximizeButton = e.NameScope.Find<Button>("PART_RestoreButton");
+        _fullScreenButton = e.NameScope.Find<Button>("PART_FullScreenButton");
+        _closeButton = e.NameScope.Find<Button>("PART_CloseButton");
 
         if (_minimizeButton != null)
             _minimizeButton.IsVisible = ShowMinimizeButton;
+        
+        if (_maximizeButton != null)
+            _maximizeButton.IsVisible = ShowMaximizeButton;
+
+        if (_fullScreenButton != null)
+            _fullScreenButton.IsVisible = ShowFullScreenButton;
 
         if (_closeButton != null)
             _closeButton.IsVisible = ShowCloseButton;
@@ -217,6 +231,9 @@ public class FluentWindow : Window
 
     private void OnCaptionBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        if (WindowState == WindowState.FullScreen)
+            return;
+        
         var properties = e.GetCurrentPoint(null).Properties;
 
         if (properties.IsLeftButtonPressed)
