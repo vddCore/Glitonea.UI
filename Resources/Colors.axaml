@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="FullScreenCaptionButtonBackgroundBrush">#20FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="MinimizeCaptionButtonBackgroundBrush">#20FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="MaximizeCaptionButtonBackgroundBrush">#20FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="CloseCaptionButtonBackgroundBrush">#FFC42B1C</SolidColorBrush>
+    <SolidColorBrush x:Key="PressedCaptionButtonOverlayBrush">#33000000</SolidColorBrush>
+</ResourceDictionary>

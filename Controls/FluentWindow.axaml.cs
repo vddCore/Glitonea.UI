@@ -9,23 +9,22 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 
 public class FluentWindow : Window
 {
+    private CompositeDisposable? _disposables;
     private Control? _captionBar;
-
-    private Button? _maximizeButton;
-    private Button? _fullScreenButton;
-    private Button? _minimizeButton;
-    private Button? _closeButton;
-
-    private CompositeDisposable _disposables;
+    private CaptionButtons? _captionButtons;
 
     protected override Type StyleKeyOverride => typeof(FluentWindow);
 
     public new static readonly StyledProperty<Bitmap> IconProperty =
         AvaloniaProperty.Register<FluentWindow, Bitmap>(nameof(Icon));
+    
+    public static readonly StyledProperty<bool> ShowIconProperty = 
+        AvaloniaProperty.Register<FluentWindow, bool>(
+            nameof(ShowIcon), true
+        );
 
     public static readonly StyledProperty<bool> ShowMinimizeButtonProperty =
         AvaloniaProperty.Register<FluentWindow, bool>(
@@ -47,6 +46,26 @@ public class FluentWindow : Window
             nameof(ShowMaximizeButton), true
         );
 
+    public static readonly StyledProperty<IBrush> MinimizeButtonBackgroundBrushProperty =
+        AvaloniaProperty.Register<FluentWindow, IBrush>(
+            nameof(MinimizeButtonBackgroundBrush)
+        );
+
+    public static readonly StyledProperty<IBrush> MaximizeButtonBackgroundBrushProperty =
+        AvaloniaProperty.Register<FluentWindow, IBrush>(
+            nameof(MaximizeButtonBackgroundBrush)
+        );
+
+    public static readonly StyledProperty<IBrush> FullScreenButtonBackgroundBrushProperty =
+        AvaloniaProperty.Register<FluentWindow, IBrush>(
+            nameof(FullScreenButtonBackgroundBrush)
+        );
+
+    public static readonly StyledProperty<IBrush> CloseButtonBackgroundBrushProperty =
+        AvaloniaProperty.Register<FluentWindow, IBrush>(
+            nameof(CloseButtonBackgroundBrush)
+        );
+
     public static readonly StyledProperty<IBrush> CaptionBarBackgroundProperty =
         AvaloniaProperty.Register<FluentWindow, IBrush>(
             nameof(CaptionBarBackground)
@@ -59,7 +78,7 @@ public class FluentWindow : Window
 
     public static readonly StyledProperty<double> CaptionBarHeightProperty =
         AvaloniaProperty.Register<FluentWindow, double>(
-            nameof(CaptionBarHeight), 31
+            nameof(CaptionBarHeight), 30
         );
 
     internal static readonly StyledProperty<Thickness> CaptionContentSafeAreaMarginProperty =
@@ -75,6 +94,12 @@ public class FluentWindow : Window
             SetValue(IconProperty, value);
             base.Icon = new WindowIcon(Icon);
         }
+    }
+
+    public bool ShowIcon
+    {
+        get => GetValue(ShowIconProperty);
+        set => SetValue(ShowIconProperty, value);
     }
 
     public bool ShowMaximizeButton
@@ -99,6 +124,30 @@ public class FluentWindow : Window
     {
         get => GetValue(ShowCloseButtonProperty);
         set => SetValue(ShowCloseButtonProperty, value);
+    }
+
+    public IBrush MinimizeButtonBackgroundBrush
+    {
+        get => GetValue(MinimizeButtonBackgroundBrushProperty);
+        set => SetValue(MinimizeButtonBackgroundBrushProperty, value);
+    }
+
+    public IBrush MaximizeButtonBackgroundBrush
+    {
+        get => GetValue(MaximizeButtonBackgroundBrushProperty);
+        set => SetValue(MaximizeButtonBackgroundBrushProperty, value);
+    }
+
+    public IBrush FullScreenButtonBackgroundBrush
+    {
+        get => GetValue(FullScreenButtonBackgroundBrushProperty);
+        set => SetValue(FullScreenButtonBackgroundBrushProperty, value);
+    }
+
+    public IBrush CloseButtonBackgroundBrush
+    {
+        get => GetValue(CloseButtonBackgroundBrushProperty);
+        set => SetValue(CloseButtonBackgroundBrushProperty, value);
     }
 
     public IBrush CaptionBarBackground
@@ -133,95 +182,45 @@ public class FluentWindow : Window
             WindowTransparencyLevel.Mica,
             WindowTransparencyLevel.Blur
         ];
-
-        ExtendClientAreaToDecorationsHint = true;
-        ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-        ExtendClientAreaTitleBarHeightHint = CaptionBarHeight;
-
-        _disposables = new CompositeDisposable
-        {
-            this.GetObservable(WindowStateProperty)
-                .Subscribe(x =>
-                {
-                    PseudoClasses.Set(":normal", x == WindowState.Normal);
-                    PseudoClasses.Set(":minimized", x == WindowState.Minimized);
-                    PseudoClasses.Set(":maximized", x == WindowState.Maximized);
-                    PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
-                }),
-
-            this.GetObservable(ShowMaximizeButtonProperty)
-                .Subscribe(x =>
-                {
-                    if (_maximizeButton != null)
-                        _maximizeButton.IsVisible = x;
-                }),
-
-            this.GetObservable(ShowMinimizeButtonProperty)
-                .Subscribe(x =>
-                {
-                    if (_minimizeButton != null)
-                        _minimizeButton.IsVisible = x;
-                }),
-
-            this.GetObservable(ShowCloseButtonProperty)
-                .Subscribe(x =>
-                {
-                    if (_closeButton != null)
-                        _closeButton.IsVisible = x;
-                })
-        };
     }
-
-    protected override void OnUnloaded(RoutedEventArgs e)
-        => _disposables.Dispose();
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
 
-        _captionBar = e.NameScope.Find<Control>("PART_CaptionBar");
-
-        if (_captionBar == null)
-        {
-            throw new InvalidOperationException(
-                "Cannot find a critical template element. " +
-                "Forgor to include <GlitoneaUI/> in your application styles?"
-            );
-        }
-
-        _captionBar.PointerPressed += OnCaptionBarPointerPressed;
-
-        var captionButtons = e.NameScope.Find<CaptionButtons>(
-            "PART_CaptionButtons"
-        );
-
-        if (captionButtons != null)
-        {
-            captionButtons.Resources.Add("CaptionButtonHeight", CaptionBarHeight);
-            captionButtons.TemplateApplied += CaptionButtons_TemplateApplied;
-            captionButtons.LayoutUpdated += CaptionButtons_LayoutUpdated;
-            captionButtons.Attach(this);
-        }
+        _captionBar = e.NameScope.Require<Control>("PART_CaptionBar");
+        _captionButtons = e.NameScope.Require<CaptionButtons>("PART_CaptionButtons");
     }
 
-    private void CaptionButtons_TemplateApplied(object? sender, TemplateAppliedEventArgs e)
+    protected override void OnLoaded(RoutedEventArgs e)
     {
-        _minimizeButton = e.NameScope.Find<Button>("PART_MinimizeButton");
-        _maximizeButton = e.NameScope.Find<Button>("PART_RestoreButton");
-        _fullScreenButton = e.NameScope.Find<Button>("PART_FullScreenButton");
-        _closeButton = e.NameScope.Find<Button>("PART_CloseButton");
-
-        if (_minimizeButton != null)
-            _minimizeButton.IsVisible = ShowMinimizeButton;
+        _captionBar!.PointerPressed += OnCaptionBarPointerPressed;
+        _captionButtons!.LayoutUpdated += CaptionButtons_LayoutUpdated;
+        _captionButtons!.Resources.Add("CaptionButtonHeight", CaptionBarHeight);
+        _captionButtons!.Attach(this);
         
-        if (_maximizeButton != null)
-            _maximizeButton.IsVisible = ShowMaximizeButton;
+        _disposables = new CompositeDisposable
+        {
+            this.GetObservable(WindowStateProperty).Subscribe(x =>
+            {
+                PseudoClasses.Set(":normal", x == WindowState.Normal);
+                PseudoClasses.Set(":minimized", x == WindowState.Minimized);
+                PseudoClasses.Set(":maximized", x == WindowState.Maximized);
+                PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
+            })
+        };
+        
+        base.OnLoaded(e);
+    }
 
-        if (_fullScreenButton != null)
-            _fullScreenButton.IsVisible = ShowFullScreenButton;
+    protected override void OnUnloaded(RoutedEventArgs e)
+    {
+        _captionBar!.PointerPressed -= OnCaptionBarPointerPressed;
+        _captionButtons!.LayoutUpdated -= CaptionButtons_LayoutUpdated;
+        _captionButtons!.Detach();
+        _disposables?.Dispose();
 
-        if (_closeButton != null)
-            _closeButton.IsVisible = ShowCloseButton;
+        base.OnUnloaded(e);
     }
 
     private void CaptionButtons_LayoutUpdated(object? sender, EventArgs e)
@@ -233,7 +232,7 @@ public class FluentWindow : Window
     {
         if (WindowState == WindowState.FullScreen)
             return;
-        
+
         var properties = e.GetCurrentPoint(null).Properties;
 
         if (properties.IsLeftButtonPressed)

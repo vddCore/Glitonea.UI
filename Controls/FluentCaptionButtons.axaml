@@ -1,0 +1,256 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:baseControls="clr-namespace:Glitonea.UI">
+    <Styles.Resources>
+        <ControlTheme x:Key="FluentCaptionButton" TargetType="Button">
+            <Setter Property="Width"
+                    Value="{DynamicResource CaptionButtonWidth}" />
+
+            <Setter Property="Height"
+                    Value="{DynamicResource CaptionButtonHeight}" />
+
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                      Background="Transparent"
+                                      Content="{TemplateBinding Content}" />
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+    </Styles.Resources>
+
+    <Style Selector="baseControls|FluentCaptionButtons">
+        <Setter Property="FullScreenButtonBackgroundBrush" Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
+        <Setter Property="MinimizeButtonBackgroundBrush" Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
+        <Setter Property="MaximizeButtonBackgroundBrush" Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />
+        <Setter Property="CloseButtonBackgroundBrush" Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
+        
+        <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
+        <Setter Property="MaxHeight" Value="30" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Spacing="2"
+                            VerticalAlignment="Stretch"
+                            TextElement.FontSize="10"
+                            Orientation="Horizontal">
+                    <StackPanel.Styles>
+                        <Style Selector="Rectangle.SmoothTransition">
+                            <Setter Property="Transitions">
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity"
+                                                      Duration="0:0:0.090"
+                                                      Easing="CircularEaseIn" />
+                                </Transitions>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Styles>
+                    
+                    <Button x:Name="PART_FullScreenButton"
+                            Theme="{StaticResource FluentCaptionButton}"
+                            IsVisible="{TemplateBinding ShowFullScreenButton}"
+                            AutomationProperties.Name="Fullscreen">
+                        <Grid>
+                            <Rectangle x:Name="PART_FullScreenButtonPointerOverBackground"
+                                       Classes="SmoothTransition"
+                                       ZIndex="0"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{TemplateBinding FullScreenButtonBackgroundBrush}" />
+
+                            <Rectangle x:Name="PART_FullScreenButtonPressedOverlay"
+                                       Classes="SmoothTransition"
+                                       ZIndex="1"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{DynamicResource PressedCaptionButtonOverlayBrush}" />
+
+                            <Viewbox ZIndex="2"
+                                     Width="11"
+                                     Margin="2">
+                                <Path x:Name="FullScreenButtonPath"
+                                      Stretch="UniformToFill"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z" />
+                            </Viewbox>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="PART_MinimizeButton"
+                            Theme="{StaticResource FluentCaptionButton}"
+                            IsVisible="{TemplateBinding ShowMinimizeButton}"
+                            AutomationProperties.Name="Minimize">
+                        <Grid>
+                            <Rectangle x:Name="PART_MinimizeButtonPointerOverBackground"
+                                       Classes="SmoothTransition"
+                                       ZIndex="0"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{TemplateBinding MinimizeButtonBackgroundBrush}" />
+
+                            <Rectangle x:Name="PART_MinimizeButtonPressedOverlay"
+                                       Classes="SmoothTransition"
+                                       ZIndex="1"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{DynamicResource PressedCaptionButtonOverlayBrush}" />
+
+                            <Viewbox ZIndex="2"
+                                     Width="11"
+                                     Margin="2">
+                                <Path Stretch="UniformToFill"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Data="M2048 1229v-205h-2048v205h2048z" />
+                            </Viewbox>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="PART_RestoreButton"
+                            Theme="{StaticResource FluentCaptionButton}"
+                            IsVisible="{TemplateBinding ShowMaximizeButton}"
+                            AutomationProperties.Name="Maximize">
+                        <Grid>
+                            <Rectangle x:Name="PART_RestoreButtonPointerOverBackground"
+                                       Classes="SmoothTransition"
+                                       ZIndex="0"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{TemplateBinding MaximizeButtonBackgroundBrush}" />
+
+                            <Rectangle x:Name="PART_RestoreButtonPressedOverlay"
+                                       Classes="SmoothTransition"
+                                       ZIndex="1"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{DynamicResource PressedCaptionButtonOverlayBrush}" />
+
+                            <Viewbox ZIndex="2"
+                                     Width="11"
+                                     Margin="2">
+                                <Viewbox.RenderTransform>
+                                    <RotateTransform Angle="-90" />
+                                </Viewbox.RenderTransform>
+
+                                <Path x:Name="RestoreButtonPath"
+                                      Stretch="UniformToFill"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z" />
+                            </Viewbox>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="PART_CloseButton"
+                            Theme="{StaticResource FluentCaptionButton}"
+                            IsVisible="{TemplateBinding ShowCloseButton}"
+                            AutomationProperties.Name="Close">
+                        <Grid>
+                            <Rectangle x:Name="PART_CloseButtonPointerOverBackground"
+                                       Classes="SmoothTransition"
+                                       ZIndex="0"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{TemplateBinding CloseButtonBackgroundBrush}" />
+
+                            <Rectangle x:Name="PART_CloseButtonPressedOverlay"
+                                       Classes="SmoothTransition"
+                                       ZIndex="1"
+                                       Opacity="0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Fill="{DynamicResource PressedCaptionButtonOverlayBrush}" />
+
+                            <Viewbox ZIndex="2"
+                                     Width="11"
+                                     Margin="2">
+                                <Path Stretch="UniformToFill"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z" />
+                            </Viewbox>
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^ /template/ Button#PART_FullScreenButton:pointerover Rectangle#PART_FullScreenButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_FullScreenButton:pressed Rectangle#PART_FullScreenButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_FullScreenButton:pressed Rectangle#PART_FullScreenButtonPressedOverlay">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_MinimizeButton:pointerover Rectangle#PART_MinimizeButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_MinimizeButton:pressed Rectangle#PART_MinimizeButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_MinimizeButton:pressed Rectangle#PART_MinimizeButtonPressedOverlay">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_RestoreButton:pointerover Rectangle#PART_RestoreButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_RestoreButton:pressed Rectangle#PART_RestoreButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_RestoreButton:pressed Rectangle#PART_RestoreButtonPressedOverlay">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="^ /template/ Button#PART_CloseButton:pointerover Rectangle#PART_CloseButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_CloseButton:pressed Rectangle#PART_CloseButtonPointerOverBackground">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^ /template/ Button#PART_CloseButton:pressed Rectangle#PART_CloseButtonPressedOverlay">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        
+        <Style Selector="^:maximized /template/ Path#RestoreButtonPath">
+            <Setter Property="Data"
+                    Value="M2048 410h-410v-410h-1638v1638h410v410h1638v-1638zM1434 1434h-1229v-1229h1229v1229zM1843 1843h-1229v-205h1024v-1024h205v1229z" />
+        </Style>
+
+        <Style Selector="^:fullscreen /template/ Path#FullScreenButtonPath">
+            <Setter Property="IsVisible" Value="True" />
+            <Setter Property="Data"
+                    Value="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
+        </Style>
+
+        <Style Selector="^:fullscreen /template/ Button#PART_RestoreButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="^:fullscreen /template/ Button#PART_MinimizeButton">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+
+        <Style Selector="^ /template/ Button#PART_RestoreButton:disabled">
+            <Setter Property="Opacity" Value="0.2" />
+        </Style>
+    </Style>
+</Styles>
