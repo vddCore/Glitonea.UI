@@ -33,8 +33,7 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <StackPanel Spacing="2"
-                            VerticalAlignment="Stretch"
+                <StackPanel VerticalAlignment="Stretch"
                             TextElement.FontSize="10"
                             Orientation="Horizontal">
                     <StackPanel.Styles>
@@ -42,7 +41,7 @@
                             <Setter Property="Transitions">
                                 <Transitions>
                                     <DoubleTransition Property="Opacity"
-                                                      Duration="0:0:0.090"
+                                                      Duration="{DynamicResource CaptionButtonTransitionTimeSpan}"
                                                       Easing="CircularEaseIn" />
                                 </Transitions>
                             </Setter>
