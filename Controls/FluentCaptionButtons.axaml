@@ -29,7 +29,7 @@
         <Setter Property="CloseButtonBackgroundBrush" Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
         
         <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
-        <Setter Property="MaxHeight" Value="30" />
+        <Setter Property="MaxHeight" Value="{DynamicResource CaptionButtonHeight}" />
 
         <Setter Property="Template">
             <ControlTemplate>
