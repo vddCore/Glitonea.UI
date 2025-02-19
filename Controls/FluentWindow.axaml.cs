@@ -20,8 +20,8 @@ public class FluentWindow : Window
 
     public new static readonly StyledProperty<Bitmap> IconProperty =
         AvaloniaProperty.Register<FluentWindow, Bitmap>(nameof(Icon));
-    
-    public static readonly StyledProperty<bool> ShowIconProperty = 
+
+    public static readonly StyledProperty<bool> ShowIconProperty =
         AvaloniaProperty.Register<FluentWindow, bool>(
             nameof(ShowIcon), true
         );
@@ -198,7 +198,7 @@ public class FluentWindow : Window
         _captionButtons!.LayoutUpdated += CaptionButtons_LayoutUpdated;
         _captionButtons!.Resources.Add("CaptionButtonHeight", CaptionBarHeight);
         _captionButtons!.Attach(this);
-        
+
         _disposables = new CompositeDisposable
         {
             this.GetObservable(WindowStateProperty).Subscribe(x =>
@@ -209,7 +209,7 @@ public class FluentWindow : Window
                 PseudoClasses.Set(":fullscreen", x == WindowState.FullScreen);
             })
         };
-        
+
         base.OnLoaded(e);
     }
 
@@ -233,19 +233,22 @@ public class FluentWindow : Window
         if (WindowState == WindowState.FullScreen)
             return;
 
-        var properties = e.GetCurrentPoint(null).Properties;
-
-        if (properties.IsLeftButtonPressed)
+        if (_captionBar!.IsPointerOver)
         {
-            if (e.ClickCount == 2 && ShowMaximizeButton)
+            var properties = e.GetCurrentPoint(this).Properties;
+
+            if (properties.IsLeftButtonPressed)
             {
-                WindowState = WindowState == WindowState.Maximized
-                    ? WindowState.Normal
-                    : WindowState.Maximized;
-            }
-            else
-            {
-                BeginMoveDrag(e);
+                if (e.ClickCount == 2 && ShowMaximizeButton)
+                {
+                    WindowState = WindowState == WindowState.Maximized
+                        ? WindowState.Normal
+                        : WindowState.Maximized;
+                }
+                else
+                {
+                    BeginMoveDrag(e);
+                }
             }
         }
     }

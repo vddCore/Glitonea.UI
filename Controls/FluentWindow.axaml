@@ -1,13 +1,7 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:baseControls="clr-namespace:Glitonea.UI">
-    <Design.PreviewWith>
-        <Border Padding="20">
-            <baseControls:FluentWindow />
-        </Border>
-    </Design.PreviewWith>
-
-    <Style Selector="baseControls|FluentWindow">
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:baseControls="clr-namespace:Glitonea.UI">
+    <ControlTheme x:Key="{x:Type baseControls:FluentWindow}" TargetType="baseControls:FluentWindow">
         <Setter Property="Background"
                 Value="Transparent" />
 
@@ -30,28 +24,55 @@
                 Value="True" />
 
         <Setter Property="ExtendClientAreaTitleBarHeightHint"
-                Value="{Binding $parent[baseControls:FluentWindow].CaptionBarHeight}" />
+                Value="{Binding $self.CaptionBarHeight}" />
+        
+        <Setter Property="FullScreenButtonBackgroundBrush" 
+                Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
+        
+        <Setter Property="MinimizeButtonBackgroundBrush"
+                Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
+        
+        <Setter Property="MaximizeButtonBackgroundBrush"
+                Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />
+        
+        <Setter Property="CloseButtonBackgroundBrush"
+                Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
 
         <Setter Property="CaptionBar">
             <Template>
-                <Grid ColumnDefinitions="Auto,*">
-                    <Viewbox Grid.Column="0"
-                             Width="16"
-                             Height="16"
-                             Margin="10,0,0,0"
-                             IsVisible="{TemplateBinding ShowIcon}">
-                        <Image Source="{Binding $parent[baseControls:FluentWindow].Icon}"
-                               RenderOptions.EdgeMode="Antialias"
-                               RenderOptions.BitmapInterpolationMode="HighQuality"
-                               RenderOptions.RequiresFullOpacityHandling="True" />
-                    </Viewbox>
+                <Border BorderThickness="0,0,0,1">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush>
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="Transparent"
+                                              Offset="0.002" />
+                                <GradientStop Color="#55FFFFFF"
+                                              Offset="0.50" />
+                                <GradientStop Color="Transparent"
+                                              Offset="0.998" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Viewbox Grid.Column="0"
+                                 Width="16"
+                                 Height="16"
+                                 Margin="10,0,0,0"
+                                 IsVisible="{TemplateBinding ShowIcon}">
+                            <Image Source="{Binding $parent[baseControls:FluentWindow].Icon}"
+                                   RenderOptions.EdgeMode="Antialias"
+                                   RenderOptions.BitmapInterpolationMode="HighQuality"
+                                   RenderOptions.RequiresFullOpacityHandling="True" />
+                        </Viewbox>
 
-                    <TextBlock Grid.Column="1"
-                               Text="{Binding $parent[baseControls:FluentWindow].Title}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Foreground="{DynamicResource TextControlForeground}" />
-                </Grid>
+                        <TextBlock Grid.Column="1"
+                                   Text="{Binding $parent[baseControls:FluentWindow].Title}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextControlForeground}" />
+                    </Grid>
+                </Border>
             </Template>
         </Setter>
 
@@ -85,18 +106,18 @@
                                 </Border>
 
                                 <baseControls:FluentCaptionButtons Grid.Column="1"
-                                                                   x:Name="PART_CaptionButtons"
-                                                                   VerticalAlignment="Stretch"
-                                                                   Background="{TemplateBinding CaptionBarBackground}"
-                                                                   Foreground="{DynamicResource TextControlForeground}" 
-                                                                   FullScreenButtonBackgroundBrush="{TemplateBinding FullScreenButtonBackgroundBrush}"
-                                                                   MinimizeButtonBackgroundBrush="{TemplateBinding MinimizeButtonBackgroundBrush}"
-                                                                   MaximizeButtonBackgroundBrush="{TemplateBinding MaximizeButtonBackgroundBrush}"
-                                                                   CloseButtonBackgroundBrush="{TemplateBinding CloseButtonBackgroundBrush}"
-                                                                   ShowFullScreenButton="{TemplateBinding ShowFullScreenButton}"
-                                                                   ShowMinimizeButton="{TemplateBinding ShowMinimizeButton}"
-                                                                   ShowMaximizeButton="{TemplateBinding ShowMaximizeButton}" 
-                                                                   ShowCloseButton="{TemplateBinding ShowCloseButton}" />
+                                    x:Name="PART_CaptionButtons"
+                                    VerticalAlignment="Stretch"
+                                    Background="{TemplateBinding CaptionBarBackground}"
+                                    Foreground="{DynamicResource TextControlForeground}"
+                                    FullScreenButtonBackgroundBrush="{TemplateBinding FullScreenButtonBackgroundBrush}"
+                                    MinimizeButtonBackgroundBrush="{TemplateBinding MinimizeButtonBackgroundBrush}"
+                                    MaximizeButtonBackgroundBrush="{TemplateBinding MaximizeButtonBackgroundBrush}"
+                                    CloseButtonBackgroundBrush="{TemplateBinding CloseButtonBackgroundBrush}"
+                                    ShowFullScreenButton="{TemplateBinding ShowFullScreenButton}"
+                                    ShowMinimizeButton="{TemplateBinding ShowMinimizeButton}"
+                                    ShowMaximizeButton="{TemplateBinding ShowMaximizeButton}"
+                                    ShowCloseButton="{TemplateBinding ShowCloseButton}" />
                             </Grid>
                         </Border>
 
@@ -112,5 +133,5 @@
                 </Panel>
             </ControlTemplate>
         </Setter>
-    </Style>
-</Styles>
+    </ControlTheme>
+</ResourceDictionary>

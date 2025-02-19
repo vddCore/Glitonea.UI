@@ -1,9 +1,9 @@
 ﻿namespace Glitonea.UI;
 
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Styling;
 
-public class GlitoneaUI : Styles
+public class GlitoneaUI : ResourceDictionary
 {
     public GlitoneaUI()
     {

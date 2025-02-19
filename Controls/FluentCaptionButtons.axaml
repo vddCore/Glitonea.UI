@@ -1,33 +1,30 @@
-﻿<Styles xmlns="https://github.com/avaloniaui"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:baseControls="clr-namespace:Glitonea.UI">
-    <Styles.Resources>
-        <ControlTheme x:Key="FluentCaptionButton" TargetType="Button">
-            <Setter Property="Width"
-                    Value="{DynamicResource CaptionButtonWidth}" />
+    <ControlTheme x:Key="FluentCaptionButton" TargetType="Button">
+        <Setter Property="Width"
+                Value="{DynamicResource CaptionButtonWidth}" />
 
-            <Setter Property="Height"
-                    Value="{DynamicResource CaptionButtonHeight}" />
+        <Setter Property="Height"
+                Value="{DynamicResource CaptionButtonHeight}" />
 
-            <Setter Property="VerticalAlignment"
-                    Value="Stretch" />
+        <Setter Property="VerticalAlignment"
+                Value="Stretch" />
 
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <ContentPresenter x:Name="PART_ContentPresenter"
-                                      Background="Transparent"
-                                      Content="{TemplateBinding Content}" />
-                </ControlTemplate>
-            </Setter>
-        </ControlTheme>
-    </Styles.Resources>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter x:Name="PART_ContentPresenter"
+                                  Background="Transparent"
+                                  Content="{TemplateBinding Content}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
 
-    <Style Selector="baseControls|FluentCaptionButtons">
+    <ControlTheme x:Key="{x:Type baseControls:FluentCaptionButtons}" TargetType="baseControls:FluentCaptionButtons">
         <Setter Property="FullScreenButtonBackgroundBrush" Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
         <Setter Property="MinimizeButtonBackgroundBrush" Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
         <Setter Property="MaximizeButtonBackgroundBrush" Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />
         <Setter Property="CloseButtonBackgroundBrush" Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
-        
         <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
         <Setter Property="MaxHeight" Value="{DynamicResource CaptionButtonHeight}" />
 
@@ -251,5 +248,5 @@
         <Style Selector="^ /template/ Button#PART_RestoreButton:disabled">
             <Setter Property="Opacity" Value="0.2" />
         </Style>
-    </Style>
-</Styles>
+    </ControlTheme>
+</ResourceDictionary>
