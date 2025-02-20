@@ -13,7 +13,7 @@ public static partial class Extensions
         {
             throw new InvalidOperationException(
                 $"Cannot find the critical template component '{componentName}'. " +
-                (internalCall ? "Forgor to add <GlitoneaUI /> to your application styles?" : string.Empty)
+                (internalCall ? "Forgor to add <GlitoneaUI /> to your Application.Resources?" : string.Empty)
             );
         }
 
