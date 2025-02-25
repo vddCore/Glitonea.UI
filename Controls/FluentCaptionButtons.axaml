@@ -21,10 +21,10 @@
     </ControlTheme>
 
     <ControlTheme x:Key="{x:Type baseControls:FluentCaptionButtons}" TargetType="baseControls:FluentCaptionButtons">
-        <Setter Property="FullScreenButtonBackgroundBrush" Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
-        <Setter Property="MinimizeButtonBackgroundBrush" Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
-        <Setter Property="MaximizeButtonBackgroundBrush" Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />
-        <Setter Property="CloseButtonBackgroundBrush" Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
+        <Setter Property="FullScreenButtonBackground" Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
+        <Setter Property="MinimizeButtonBackground" Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
+        <Setter Property="MaximizeButtonBackground" Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />
+        <Setter Property="CloseButtonBackground" Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource TextControlForeground}" />
         <Setter Property="MaxHeight" Value="{DynamicResource CaptionButtonHeight}" />
 
@@ -56,7 +56,7 @@
                                        Opacity="0"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Fill="{TemplateBinding FullScreenButtonBackgroundBrush}" />
+                                       Fill="{TemplateBinding FullScreenButtonBackground}" />
 
                             <Rectangle x:Name="PART_FullScreenButtonPressedOverlay"
                                        Classes="SmoothTransition"
@@ -88,7 +88,7 @@
                                        Opacity="0"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Fill="{TemplateBinding MinimizeButtonBackgroundBrush}" />
+                                       Fill="{TemplateBinding MinimizeButtonBackground}" />
 
                             <Rectangle x:Name="PART_MinimizeButtonPressedOverlay"
                                        Classes="SmoothTransition"
@@ -119,7 +119,7 @@
                                        Opacity="0"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Fill="{TemplateBinding MaximizeButtonBackgroundBrush}" />
+                                       Fill="{TemplateBinding MaximizeButtonBackground}" />
 
                             <Rectangle x:Name="PART_MaximizeButtonPressedOverlay"
                                        Classes="SmoothTransition"
@@ -155,7 +155,7 @@
                                        Opacity="0"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
-                                       Fill="{TemplateBinding CloseButtonBackgroundBrush}" />
+                                       Fill="{TemplateBinding CloseButtonBackground}" />
 
                             <Rectangle x:Name="PART_CloseButtonPressedOverlay"
                                        Classes="SmoothTransition"

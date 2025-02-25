@@ -79,24 +79,24 @@ public class FluentWindow : Window
             nameof(ShowMaximizeButton), true
         );
 
-    public static readonly StyledProperty<IBrush> MinimizeButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush> MinimizeButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentWindow, IBrush>(
-            nameof(MinimizeButtonBackgroundBrush)
+            nameof(MinimizeButtonBackground)
         );
 
-    public static readonly StyledProperty<IBrush> MaximizeButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush> MaximizeButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentWindow, IBrush>(
-            nameof(MaximizeButtonBackgroundBrush)
+            nameof(MaximizeButtonBackground)
         );
 
-    public static readonly StyledProperty<IBrush> FullScreenButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush> FullScreenButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentWindow, IBrush>(
-            nameof(FullScreenButtonBackgroundBrush)
+            nameof(FullScreenButtonBackground)
         );
 
-    public static readonly StyledProperty<IBrush> CloseButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush> CloseButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentWindow, IBrush>(
-            nameof(CloseButtonBackgroundBrush)
+            nameof(CloseButtonBackground)
         );
 
     public static readonly StyledProperty<IBrush> CaptionBarBackgroundProperty =
@@ -189,28 +189,28 @@ public class FluentWindow : Window
         set => SetValue(ShowCloseButtonProperty, value);
     }
 
-    public IBrush FullScreenButtonBackgroundBrush
+    public IBrush FullScreenButtonBackground
     {
-        get => GetValue(FullScreenButtonBackgroundBrushProperty);
-        set => SetValue(FullScreenButtonBackgroundBrushProperty, value);
+        get => GetValue(FullScreenButtonBackgroundProperty);
+        set => SetValue(FullScreenButtonBackgroundProperty, value);
     }
 
-    public IBrush MinimizeButtonBackgroundBrush
+    public IBrush MinimizeButtonBackground
     {
-        get => GetValue(MinimizeButtonBackgroundBrushProperty);
-        set => SetValue(MinimizeButtonBackgroundBrushProperty, value);
+        get => GetValue(MinimizeButtonBackgroundProperty);
+        set => SetValue(MinimizeButtonBackgroundProperty, value);
     }
 
-    public IBrush MaximizeButtonBackgroundBrush
+    public IBrush MaximizeButtonBackground
     {
-        get => GetValue(MaximizeButtonBackgroundBrushProperty);
-        set => SetValue(MaximizeButtonBackgroundBrushProperty, value);
+        get => GetValue(MaximizeButtonBackgroundProperty);
+        set => SetValue(MaximizeButtonBackgroundProperty, value);
     }
 
-    public IBrush CloseButtonBackgroundBrush
+    public IBrush CloseButtonBackground
     {
-        get => GetValue(CloseButtonBackgroundBrushProperty);
-        set => SetValue(CloseButtonBackgroundBrushProperty, value);
+        get => GetValue(CloseButtonBackgroundProperty);
+        set => SetValue(CloseButtonBackgroundProperty, value);
     }
 
     public IBrush CaptionBarBackground

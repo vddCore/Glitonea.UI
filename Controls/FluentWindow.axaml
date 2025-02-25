@@ -26,16 +26,16 @@
         <Setter Property="ExtendClientAreaTitleBarHeightHint"
                 Value="{Binding $self.CaptionBarHeight}" />
         
-        <Setter Property="FullScreenButtonBackgroundBrush" 
+        <Setter Property="FullScreenButtonBackground" 
                 Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
         
-        <Setter Property="MinimizeButtonBackgroundBrush"
+        <Setter Property="MinimizeButtonBackground"
                 Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
         
-        <Setter Property="MaximizeButtonBackgroundBrush"
+        <Setter Property="MaximizeButtonBackground"
                 Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />
         
-        <Setter Property="CloseButtonBackgroundBrush"
+        <Setter Property="CloseButtonBackground"
                 Value="{DynamicResource CloseCaptionButtonBackgroundBrush}" />
 
         <Setter Property="CaptionBar">
@@ -110,10 +110,10 @@
                                     VerticalAlignment="Stretch"
                                     Background="{TemplateBinding CaptionBarBackground}"
                                     Foreground="{DynamicResource TextControlForeground}"
-                                    FullScreenButtonBackgroundBrush="{TemplateBinding FullScreenButtonBackgroundBrush}"
-                                    MinimizeButtonBackgroundBrush="{TemplateBinding MinimizeButtonBackgroundBrush}"
-                                    MaximizeButtonBackgroundBrush="{TemplateBinding MaximizeButtonBackgroundBrush}"
-                                    CloseButtonBackgroundBrush="{TemplateBinding CloseButtonBackgroundBrush}"
+                                    FullScreenButtonBackground="{TemplateBinding FullScreenButtonBackground}"
+                                    MinimizeButtonBackground="{TemplateBinding MinimizeButtonBackground}"
+                                    MaximizeButtonBackground="{TemplateBinding MaximizeButtonBackground}"
+                                    CloseButtonBackground="{TemplateBinding CloseButtonBackground}"
                                     ShowFullScreenButton="{TemplateBinding ShowFullScreenButton}"
                                     ShowMinimizeButton="{TemplateBinding ShowMinimizeButton}"
                                     ShowMaximizeButton="{TemplateBinding ShowMaximizeButton}"

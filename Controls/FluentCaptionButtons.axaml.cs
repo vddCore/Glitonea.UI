@@ -28,24 +28,24 @@ public class FluentCaptionButtons : TemplatedControl
 
     protected override Type StyleKeyOverride => typeof(FluentCaptionButtons);
 
-    public static readonly StyledProperty<IBrush?> FullScreenButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush?> FullScreenButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentCaptionButtons, IBrush?>(
-            nameof(FullScreenButtonBackgroundBrush)
+            nameof(FullScreenButtonBackground)
         );
 
-    public static readonly StyledProperty<IBrush?> MinimizeButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush?> MinimizeButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentCaptionButtons, IBrush?>(
-            nameof(MinimizeButtonBackgroundBrush)
+            nameof(MinimizeButtonBackground)
         );
 
-    public static readonly StyledProperty<IBrush?> MaximizeButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush?> MaximizeButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentCaptionButtons, IBrush?>(
-            nameof(MaximizeButtonBackgroundBrush)
+            nameof(MaximizeButtonBackground)
         );
 
-    public static readonly StyledProperty<IBrush?> CloseButtonBackgroundBrushProperty =
+    public static readonly StyledProperty<IBrush?> CloseButtonBackgroundProperty =
         AvaloniaProperty.Register<FluentCaptionButtons, IBrush?>(
-            nameof(CloseButtonBackgroundBrush)
+            nameof(CloseButtonBackground)
         );
 
     public static readonly StyledProperty<bool> ShowFullScreenButtonProperty =
@@ -70,28 +70,28 @@ public class FluentCaptionButtons : TemplatedControl
 
     protected FluentWindow? HostWindow { get; set; }
 
-    public IBrush? FullScreenButtonBackgroundBrush
+    public IBrush? FullScreenButtonBackground
     {
-        get => GetValue(FullScreenButtonBackgroundBrushProperty);
-        set => SetValue(FullScreenButtonBackgroundBrushProperty, value);
+        get => GetValue(FullScreenButtonBackgroundProperty);
+        set => SetValue(FullScreenButtonBackgroundProperty, value);
     }
 
-    public IBrush? MinimizeButtonBackgroundBrush
+    public IBrush? MinimizeButtonBackground
     {
-        get => GetValue(MinimizeButtonBackgroundBrushProperty);
-        set => SetValue(MinimizeButtonBackgroundBrushProperty, value);
+        get => GetValue(MinimizeButtonBackgroundProperty);
+        set => SetValue(MinimizeButtonBackgroundProperty, value);
     }
 
-    public IBrush? MaximizeButtonBackgroundBrush
+    public IBrush? MaximizeButtonBackground
     {
-        get => GetValue(MaximizeButtonBackgroundBrushProperty);
-        set => SetValue(MaximizeButtonBackgroundBrushProperty, value);
+        get => GetValue(MaximizeButtonBackgroundProperty);
+        set => SetValue(MaximizeButtonBackgroundProperty, value);
     }
 
-    public IBrush? CloseButtonBackgroundBrush
+    public IBrush? CloseButtonBackground
     {
-        get => GetValue(CloseButtonBackgroundBrushProperty);
-        set => SetValue(CloseButtonBackgroundBrushProperty, value);
+        get => GetValue(CloseButtonBackgroundProperty);
+        set => SetValue(CloseButtonBackgroundProperty, value);
     }
 
     public bool ShowFullScreenButton
