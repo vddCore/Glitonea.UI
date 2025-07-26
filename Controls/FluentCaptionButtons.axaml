@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:baseControls="clr-namespace:Glitonea.UI">
+        xmlns:baseControls="clr-namespace:Glitonea.UI"
+        xmlns:controls="clr-namespace:Glitonea.UI.Controls">
     <ControlTheme x:Key="FluentCaptionButton" TargetType="Button">
         <Setter Property="Width"
                 Value="{DynamicResource CaptionButtonWidth}" />
@@ -20,7 +21,7 @@
         </Setter>
     </ControlTheme>
 
-    <ControlTheme x:Key="{x:Type baseControls:FluentCaptionButtons}" TargetType="baseControls:FluentCaptionButtons">
+    <ControlTheme x:Key="{x:Type controls:FluentCaptionButtons}" TargetType="controls:FluentCaptionButtons">
         <Setter Property="FullScreenButtonBackground" Value="{DynamicResource FullScreenCaptionButtonBackgroundBrush}" />
         <Setter Property="MinimizeButtonBackground" Value="{DynamicResource MinimizeCaptionButtonBackgroundBrush}" />
         <Setter Property="MaximizeButtonBackground" Value="{DynamicResource MaximizeCaptionButtonBackgroundBrush}" />

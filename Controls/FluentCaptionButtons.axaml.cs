@@ -1,11 +1,11 @@
-﻿namespace Glitonea.UI;
+﻿namespace Glitonea.UI.Controls;
 
+using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
-using System.Reactive.Disposables;
 
 [TemplatePart(PART_CloseButton, typeof(Button))]
 [TemplatePart(PART_MaximizeButton, typeof(Button))]

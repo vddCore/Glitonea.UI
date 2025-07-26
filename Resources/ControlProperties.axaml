@@ -4,4 +4,8 @@
     <x:Double x:Key="CaptionButtonHeight">30</x:Double>
     <x:TimeSpan x:Key="CaptionButtonTransitionTimeSpan">0:0:0.090</x:TimeSpan>
 
+    <CornerRadius x:Key="WindowBorderCornerRadius">10</CornerRadius>
+    
+    <Easing x:Key="WindowBorderTransitionEasing">LinearEasing</Easing>
+    <x:TimeSpan x:Key="WindowBorderTransitionTimeSpan">0:0:0.075</x:TimeSpan>
 </ResourceDictionary>
