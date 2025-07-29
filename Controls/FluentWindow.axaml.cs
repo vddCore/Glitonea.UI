@@ -10,9 +10,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Media.Immutable;
-using Avalonia.Platform;
-using static Glitonea.UI.Platform.Win32;
+using static Platform.Win32;
 
 [TemplatePart(PART_CaptionBarWrapper, typeof(Border))]
 [TemplatePart(PART_CaptionBar, typeof(Grid))]
@@ -28,9 +26,7 @@ public class FluentWindow : Window
     private CompositeDisposable? _disposables;
     private Grid? _captionBar;
     private FluentCaptionButtons? _captionButtons;
-    private Border? _windowBorder;
     
-    private WindowState? _preMaximizeWindowState;
     private Thickness? _preMaximizeWindowBorderThickness;
 
     protected override Type StyleKeyOverride => typeof(FluentWindow);
@@ -143,22 +139,10 @@ public class FluentWindow : Window
             nameof(CaptionContentSafeAreaMargin)
         );
     
-    public static readonly StyledProperty<Thickness?> WindowBorderThicknessProperty =
-        AvaloniaProperty.Register<FluentWindow, Thickness?>(
-            nameof(WindowBorderThickness)
-        );
-    
     internal static readonly StyledProperty<Thickness> InternalCaptionContentSafeAreaMarginProperty =
         AvaloniaProperty.Register<FluentWindow, Thickness>(
             nameof(CaptionContentSafeAreaMargin)
         );
-
-    internal static readonly StyledProperty<IBrush?> CurrentWindowBorderBrushProperty =
-        AvaloniaProperty.Register<FluentWindow, IBrush?>(
-            nameof(CurrentWindowBorderBrush)
-        );
-
-
 
     internal static readonly StyledProperty<IBrush?> CurrentCaptionBorderBrushProperty =
         AvaloniaProperty.Register<FluentWindow, IBrush?>(
@@ -306,23 +290,11 @@ public class FluentWindow : Window
         get => GetValue(CaptionContentSafeAreaMarginProperty);
         set => SetValue(CaptionContentSafeAreaMarginProperty, value);
     }
-    
-    public Thickness? WindowBorderThickness
-    {
-        get => GetValue(WindowBorderThicknessProperty);
-        set => SetValue(WindowBorderThicknessProperty, value);
-    }
 
     internal Thickness InternalCaptionContentSafeAreaMargin
     {
         get => GetValue(InternalCaptionContentSafeAreaMarginProperty);
         set => SetValue(InternalCaptionContentSafeAreaMarginProperty, value);
-    }
-    
-    internal IBrush? CurrentWindowBorderBrush
-    {
-        get => GetValue(CurrentWindowBorderBrushProperty);
-        set  => SetValue(CurrentWindowBorderBrushProperty, value);
     }
     
     public FluentWindow()
@@ -339,7 +311,6 @@ public class FluentWindow : Window
     {
         base.OnApplyTemplate(e);
 
-        _windowBorder = e.NameScope.RequireInternal<Border>(PART_WindowBorder);
         _captionBar = e.NameScope.RequireInternal<Grid>(PART_CaptionBar);
         _captionButtons = e.NameScope.RequireInternal<FluentCaptionButtons>(PART_CaptionButtons);        
     }
@@ -362,8 +333,7 @@ public class FluentWindow : Window
             })
         };
 
-        _preMaximizeWindowBorderThickness = WindowBorderThickness;
-        _preMaximizeWindowState = WindowState;
+        _preMaximizeWindowBorderThickness = BorderThickness;
 
         if (EnableCustomWindowBorder && OperatingSystem.IsWindows())
         {
@@ -407,7 +377,7 @@ public class FluentWindow : Window
                     validBorderThickness = (defaultThickness as Thickness?) ?? new Thickness(1);
                 }
                 
-                WindowBorderThickness = EnableCustomWindowBorder ? validBorderThickness : new Thickness(0);
+                BorderThickness = EnableCustomWindowBorder ? validBorderThickness : new Thickness(0);
                 break;
             }
 
@@ -415,7 +385,7 @@ public class FluentWindow : Window
             {
                 if (EnableCustomWindowBorder)
                 {
-                    CurrentWindowBorderBrush = IsActive
+                    BorderBrush = IsActive
                         ? ActiveWindowBorderBrush
                         : InactiveWindowBorderBrush;
 
@@ -427,22 +397,29 @@ public class FluentWindow : Window
 
             case nameof(WindowState):
             {
-                if (WindowState is WindowState.FullScreen or WindowState.Maximized)
+                switch (WindowState)
                 {
-                    _preMaximizeWindowState = ((WindowState)change.OldValue!);
-                    _preMaximizeWindowBorderThickness = WindowBorderThickness;
+                    case WindowState.FullScreen or WindowState.Maximized:
+                    {
+                        _preMaximizeWindowBorderThickness = BorderThickness;
                     
-                    if (EnableCustomWindowBorder)
-                    {
-                        WindowBorderThickness = new Thickness(0);
+                        if (EnableCustomWindowBorder)
+                        {
+                            BorderThickness = new Thickness(0);
+                        }
+
+                        break;
                     }
-                }
-                else if (WindowState is WindowState.Normal)
-                {
-                    if (_preMaximizeWindowBorderThickness != null)
+                    
+                    case WindowState.Normal:
                     {
-                        WindowBorderThickness = _preMaximizeWindowBorderThickness;
-                        _preMaximizeWindowBorderThickness = null;
+                        if (_preMaximizeWindowBorderThickness != null)
+                        {
+                            BorderThickness = _preMaximizeWindowBorderThickness.Value;
+                            _preMaximizeWindowBorderThickness = null;
+                        }
+
+                        break;
                     }
                 }
 
@@ -467,7 +444,7 @@ public class FluentWindow : Window
     {
         var newCaptionBorderBrush = new LinearGradientBrush();
         
-        if (CurrentWindowBorderBrush is ISolidColorBrush brush)
+        if (BorderBrush is ISolidColorBrush brush)
         {
             var accent = Color.FromArgb(
                 0,

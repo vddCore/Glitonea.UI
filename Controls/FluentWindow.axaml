@@ -8,7 +8,7 @@
 
         <Setter Property="Foreground"
                 Value="{DynamicResource TextControlForeground}" />
-
+        
         <Setter Property="TransparencyLevelHint"
                 Value="Mica" />
 
@@ -91,9 +91,9 @@
                     <Grid RowDefinitions="Auto,*">
                         <Border Grid.RowSpan="3"
                                 x:Name="PART_WindowBorder"
-                                BorderThickness="{TemplateBinding WindowBorderThickness}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{DynamicResource WindowBorderCornerRadius}"
-                                BorderBrush="{TemplateBinding CurrentWindowBorderBrush}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
                                 ZIndex="10">
                             <Border.Transitions>
                                 <Transitions>
