@@ -3,13 +3,32 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.5.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Glitonea.UI</PackageId>
+    <Version>1.5.1</Version>
+    <Author>vddCore</Author>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/vddCore/Glitonea</RepositoryUrl>
+    <PackageIcon>nugeticon.png</PackageIcon>
+    <PackageTags>avalonia;ui;controls;winui</PackageTags>
+    <PackageLicenseExpression>EUPL-1.2</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.3.2" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
+    <None Include="README.nuget.md" Pack="true" PackagePath="\"/>
+    <None Include="Assets\nugeticon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.4" />
     <PackageReference Include="System.Reactive" Version="6.0.1" />
   </ItemGroup>
 

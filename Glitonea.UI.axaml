@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     x:Class="Glitonea.UI.GlitoneaUI">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="Resources/Colors.axaml" />
-        <ResourceInclude Source="Resources/ControlProperties.axaml" />
+        <ResourceInclude Source="Assets/Colors.axaml" />
+        <ResourceInclude Source="Assets/ControlProperties.axaml" />
         
         <ResourceInclude Source="avares://Glitonea.UI/Controls/FluentCaptionButtons.axaml" />
         <ResourceInclude Source="avares://Glitonea.UI/Controls/FluentWindow.axaml" />
